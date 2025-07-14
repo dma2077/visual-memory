@@ -1,0 +1,68 @@
+Model path: /llm_reco/dehua/model/food_model/Qwen2.5-VL-veg200_supclass_raw-0528
+Few-shot: None
+Mode: nocot
+Dataset: veg200
+K: 5
+k1: 5
+Using dataset: veg200
+Gold answer file path: /map-vepfs/dehua/code/visual-memory/answers/groundtruth/veg200_answers.jsonl
+Save filename: answers/veg200/Qwen2.5-VL-veg200_supclass_raw-0528_veg200_None_nocot_k5.jsonl
+DINO file: questions/veg200/dinov2_large_test_5_softmax_old.jsonl
+SIGLIP file: questions/veg200/siglip_test_5_softmax.jsonl
+Data proportion: 1
+INFO 05-28 19:37:08 [__init__.py:239] Automatically detected platform cuda.
+Running with the following parameters:
+model_path: /llm_reco/dehua/model/food_model/Qwen2.5-VL-veg200_supclass_raw-0528
+save_filename: answers/veg200/Qwen2.5-VL-veg200_supclass_raw-0528_veg200_None_nocot_k5.jsonl
+gold_answer_file_path: /map-vepfs/dehua/code/visual-memory/answers/groundtruth/veg200_answers.jsonl
+label_file: 
+question_file: questions/veg200/dinov2_large_test_5_softmax_old.jsonl
+siglip_file: questions/veg200/siglip_test_5_softmax.jsonl
+data_proportion: 1.0
+mode: nocot
+k1: 5
+tensor_parallel_size is 1
+Traceback (most recent call last):
+  File "/llm_reco/dehua/anaconda3/envs/vllm/lib/python3.10/site-packages/vllm/transformers_utils/config.py", line 275, in get_config
+    if is_gguf or file_or_path_exists(
+  File "/llm_reco/dehua/anaconda3/envs/vllm/lib/python3.10/site-packages/vllm/transformers_utils/config.py", line 169, in file_or_path_exists
+    cached_filepath = try_to_load_from_cache(repo_id=model,
+  File "/llm_reco/dehua/anaconda3/envs/vllm/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 106, in _inner_fn
+    validate_repo_id(arg_value)
+  File "/llm_reco/dehua/anaconda3/envs/vllm/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 154, in validate_repo_id
+    raise HFValidationError(
+huggingface_hub.errors.HFValidationError: Repo id must be in the form 'repo_name' or 'namespace/repo_name': '/llm_reco/dehua/model/food_model/Qwen2.5-VL-veg200_supclass_raw-0528'. Use `repo_type` argument if needed.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/llm_reco/dehua/code/visual-memory/code/vlm/inference_vllm.py", line 219, in <module>
+    main(args)
+  File "/llm_reco/dehua/code/visual-memory/code/vlm/inference_vllm.py", line 189, in main
+    model = get_model(args.model_path)
+  File "/llm_reco/dehua/code/visual-memory/code/vlm/inference_vllm.py", line 161, in get_model
+    model = Qwen2_5VL(model_path=model_path, max_model_len=max_model_len, tensor_parallel_size=tensor_parallel_size)
+  File "/llm_reco/dehua/code/visual-memory/code/models/qwen2_5vl.py", line 18, in __init__
+    self._model = LLM(
+  File "/llm_reco/dehua/anaconda3/envs/vllm/lib/python3.10/site-packages/vllm/utils.py", line 1161, in inner
+    return fn(*args, **kwargs)
+  File "/llm_reco/dehua/anaconda3/envs/vllm/lib/python3.10/site-packages/vllm/entrypoints/llm.py", line 247, in __init__
+    self.llm_engine = LLMEngine.from_engine_args(
+  File "/llm_reco/dehua/anaconda3/envs/vllm/lib/python3.10/site-packages/vllm/engine/llm_engine.py", line 503, in from_engine_args
+    vllm_config = engine_args.create_engine_config(usage_context)
+  File "/llm_reco/dehua/anaconda3/envs/vllm/lib/python3.10/site-packages/vllm/engine/arg_utils.py", line 1099, in create_engine_config
+    model_config = self.create_model_config()
+  File "/llm_reco/dehua/anaconda3/envs/vllm/lib/python3.10/site-packages/vllm/engine/arg_utils.py", line 987, in create_model_config
+    return ModelConfig(
+  File "/llm_reco/dehua/anaconda3/envs/vllm/lib/python3.10/site-packages/vllm/config.py", line 451, in __init__
+    hf_config = get_config(self.hf_config_path or self.model,
+  File "/llm_reco/dehua/anaconda3/envs/vllm/lib/python3.10/site-packages/vllm/transformers_utils/config.py", line 300, in get_config
+    raise ValueError(error_message) from e
+ValueError: Invalid repository ID or local directory specified: '/llm_reco/dehua/model/food_model/Qwen2.5-VL-veg200_supclass_raw-0528'.
+Please verify the following requirements:
+1. Provide a valid Hugging Face repository ID.
+2. Specify a local directory that contains a recognized configuration file.
+   - For Hugging Face models: ensure the presence of a 'config.json'.
+   - For Mistral models: ensure the presence of a 'params.json'.
+
+VLM inference for veg200 completed. Results saved to answers/veg200/Qwen2.5-VL-veg200_supclass_raw-0528_veg200_None_nocot_k5.jsonl

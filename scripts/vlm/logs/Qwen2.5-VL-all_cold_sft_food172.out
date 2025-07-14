@@ -1,0 +1,80 @@
+Model path: /mmu_mllm_hdd_2/madehua/model/CKPT/food_model/Qwen2.5-VL-all_cold_sft
+Few-shot: None
+Mode: att
+Dataset: food172
+K: 5
+k1: 5
+Using dataset: food172
+Gold answer file path: /map-vepfs/dehua/code/visual-memory/answers/groundtruth/food172_answers.jsonl
+Save filename: answers/food172/Qwen2.5-VL-all_cold_sft_food172_None_att_k5.jsonl
+DINO file: questions/food172/dinov2_large_test_5_softmax_old.jsonl
+SIGLIP file: questions/food172/siglip_test_5_softmax.jsonl
+Data proportion: 1
+INFO 06-17 23:27:26 [__init__.py:243] Automatically detected platform cuda.
+Running with the following parameters:
+model_path: /mmu_mllm_hdd_2/madehua/model/CKPT/food_model/Qwen2.5-VL-all_cold_sft
+save_filename: answers/food172/Qwen2.5-VL-all_cold_sft_food172_None_att_k5.jsonl
+gold_answer_file_path: /map-vepfs/dehua/code/visual-memory/answers/groundtruth/food172_answers.jsonl
+label_file: 
+question_file: questions/food172/dinov2_large_test_5_softmax_old.jsonl
+siglip_file: questions/food172/siglip_test_5_softmax.jsonl
+data_proportion: 1.0
+mode: att
+k1: 5
+tensor_parallel_size is 1
+INFO 06-17 23:27:32 [__init__.py:31] Available plugins for group vllm.general_plugins:
+INFO 06-17 23:27:32 [__init__.py:33] - lora_filesystem_resolver -> vllm.plugins.lora_resolvers.filesystem_resolver:register_filesystem_resolver
+INFO 06-17 23:27:32 [__init__.py:36] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 06-17 23:27:42 [config.py:793] This model supports multiple tasks: {'generate', 'reward', 'score', 'embed', 'classify'}. Defaulting to 'generate'.
+INFO 06-17 23:27:42 [config.py:2118] Chunked prefill is enabled with max_num_batched_tokens=16384.
+INFO 06-17 23:27:44 [core.py:438] Waiting for init message from front-end.
+INFO 06-17 23:27:44 [core.py:65] Initializing a V1 LLM engine (v0.9.0.1) with config: model='/mmu_mllm_hdd_2/madehua/model/CKPT/food_model/Qwen2.5-VL-all_cold_sft', speculative_config=None, tokenizer='/mmu_mllm_hdd_2/madehua/model/CKPT/food_model/Qwen2.5-VL-all_cold_sft', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, override_neuron_config={}, tokenizer_revision=None, trust_remote_code=True, dtype=torch.bfloat16, max_seq_len=4096, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto,  device_config=cuda, decoding_config=DecodingConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_backend=''), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None), seed=0, served_model_name=/mmu_mllm_hdd_2/madehua/model/CKPT/food_model/Qwen2.5-VL-all_cold_sft, num_scheduler_steps=1, multi_step_stream_outputs=True, enable_prefix_caching=True, chunked_prefill_enabled=True, use_async_output_proc=True, pooler_config=None, compilation_config={"level": 3, "custom_ops": ["none"], "splitting_ops": ["vllm.unified_attention", "vllm.unified_attention_with_output"], "compile_sizes": [], "inductor_compile_config": {"enable_auto_functionalized_v2": false}, "use_cudagraph": true, "cudagraph_num_of_warmups": 1, "cudagraph_capture_sizes": [512, 504, 496, 488, 480, 472, 464, 456, 448, 440, 432, 424, 416, 408, 400, 392, 384, 376, 368, 360, 352, 344, 336, 328, 320, 312, 304, 296, 288, 280, 272, 264, 256, 248, 240, 232, 224, 216, 208, 200, 192, 184, 176, 168, 160, 152, 144, 136, 128, 120, 112, 104, 96, 88, 80, 72, 64, 56, 48, 40, 32, 24, 16, 8, 4, 2, 1], "max_capture_size": 512}
+WARNING 06-17 23:27:44 [utils.py:2671] Methods determine_num_available_blocks,device_config,get_cache_block_size_bytes,initialize_cache not implemented in <vllm.v1.worker.gpu_worker.Worker object at 0x7f22359adc30>
+INFO 06-17 23:27:46 [parallel_state.py:1064] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, TP rank 0, EP rank 0
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+WARNING 06-17 23:27:53 [topk_topp_sampler.py:58] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
+INFO 06-17 23:27:53 [gpu_model_runner.py:1531] Starting to load model /mmu_mllm_hdd_2/madehua/model/CKPT/food_model/Qwen2.5-VL-all_cold_sft...
+WARNING 06-17 23:27:53 [vision.py:90] Current `vllm-flash-attn` has a bug inside vision module, so we use xformers backend instead. You can run `pip install flash-attn` to use flash-attention backend.
+INFO 06-17 23:27:53 [cuda.py:217] Using Flash Attention backend on V1 engine.
+INFO 06-17 23:27:53 [backends.py:35] Using InductorAdaptor
+Loading safetensors checkpoint shards:   0% Completed | 0/4 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  25% Completed | 1/4 [00:16<00:50, 16.81s/it]
+Loading safetensors checkpoint shards:  50% Completed | 2/4 [00:32<00:31, 15.94s/it]
+Loading safetensors checkpoint shards:  75% Completed | 3/4 [00:37<00:11, 11.15s/it]
+Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:52<00:00, 12.55s/it]
+Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:52<00:00, 13.07s/it]
+
+INFO 06-17 23:28:46 [default_loader.py:280] Loading weights took 52.65 seconds
+INFO 06-17 23:28:46 [gpu_model_runner.py:1549] Model loading took 15.6271 GiB and 52.838294 seconds
+INFO 06-17 23:28:47 [gpu_model_runner.py:1863] Encoder cache will be initialized with a budget of 16384 tokens, and profiled with 1 image items of the maximum feature size.
+INFO 06-17 23:28:55 [backends.py:459] Using cache directory: /root/.cache/vllm/torch_compile_cache/421702b87e/rank_0_0 for vLLM's torch.compile
+INFO 06-17 23:28:55 [backends.py:469] Dynamo bytecode transform time: 5.27 s
+INFO 06-17 23:28:57 [backends.py:158] Cache the graph of shape None for later use
+INFO 06-17 23:29:18 [backends.py:170] Compiling a graph for general shape takes 22.59 s
+INFO 06-17 23:29:25 [monitor.py:33] torch.compile takes 27.86 s in total
+INFO 06-17 23:29:26 [kv_cache_utils.py:637] GPU KV cache size: 908,768 tokens
+INFO 06-17 23:29:26 [kv_cache_utils.py:640] Maximum concurrency for 4,096 tokens per request: 221.87x
+INFO 06-17 23:29:54 [gpu_model_runner.py:1933] Graph capturing finished in 29 secs, took 1.73 GiB
+INFO 06-17 23:29:54 [core.py:167] init engine (profile, create kv cache, warmup model) took 67.87 seconds
+Loading test data:   0%|          | 0/33154 [00:00<?, ?it/s]Loading test data:  86%|████████▋ | 28636/33154 [00:00<00:00, 73150.29it/s]Loading test data: 100%|██████████| 33154/33154 [00:00<00:00, 83315.68it/s]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+INFO 06-17 23:29:58 [chat_utils.py:419] Detected the chat template content format to be 'openai'. You can set `--chat-template-content-format` to override this.
+Traceback (most recent call last):
+  File "/llm_reco/dehua/code/visual-memory/code/vlm/inference_vllm.py", line 236, in <module>
+    main(args)
+  File "/llm_reco/dehua/code/visual-memory/code/vlm/inference_vllm.py", line 208, in main
+    outputs = model.generate_until(messages)
+  File "/llm_reco/dehua/code/visual-memory/code/models/qwen2_5vl.py", line 55, in generate_until
+    outputs = self._model.chat(messages, sampling_params=self._sampling_params)
+  File "/llm_reco/dehua/anaconda3/envs/vllm/lib/python3.10/site-packages/vllm/entrypoints/llm.py", line 756, in chat
+    conversation, mm_data = parse_chat_messages(
+  File "/llm_reco/dehua/anaconda3/envs/vllm/lib/python3.10/site-packages/vllm/entrypoints/chat_utils.py", line 1172, in parse_chat_messages
+    sub_messages = _parse_chat_message_content(
+  File "/llm_reco/dehua/anaconda3/envs/vllm/lib/python3.10/site-packages/vllm/entrypoints/chat_utils.py", line 1119, in _parse_chat_message_content
+    result = _parse_chat_message_content_parts(
+  File "/llm_reco/dehua/anaconda3/envs/vllm/lib/python3.10/site-packages/vllm/entrypoints/chat_utils.py", line 1019, in _parse_chat_message_content_parts
+    parse_res = _parse_chat_message_content_part(
+  File "/llm_reco/dehua/anaconda3/envs/vllm/lib/python3.10/site-packages/vllm/entrypoints/chat_utils.py", line 1097, in _parse_chat_message_content_part
+    raise NotImplementedError(f"Unknown part type: {part_type}")
+NotImplementedError: Unknown part type: image
+VLM inference for food172 completed. Results saved to answers/food172/Qwen2.5-VL-all_cold_sft_food172_None_att_k5.jsonl

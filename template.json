@@ -1,0 +1,9 @@
+{
+    "llama_factory_llava": "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: \n<image> {content} ASSISTANT:",
+    "llava": "USER: \n<image> {content} ASSISTANT:",
+    "custom_template": "Your custom template here. USER: \n<image> {content} AI:",
+    "llava_v1.6": "[INST] <image>\n{content} [/INST]",
+    "llava_onevision": "<|im_start|>user <image> \n{content}<|im_end|><|im_start|>assistant",
+    "qwen2_vl": "<|im_start|>system \nYou are a helpful assistant.<|im_end|> \n<|im_start|>user \n<|vision_start|><|image_pad|><|vision_end|>{content}<|im_end|> \n<|im_start|>assistant",
+    "qwen2_vl2": "{content}"
+  }

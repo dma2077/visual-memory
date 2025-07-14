@@ -1,0 +1,22 @@
+[
+    {
+      "conversations": [
+        {
+          "from": "human",
+          "value": "<image> Please help me determine the category of this target food image. We will provide five food images that are similar to the target food image, including their categories and the similarity scores with the target image. \nImage 1: <image>, its category is {category1}, and its similarity to the target image is {similarity1}. Image 2: <image>, its category is {category2}, and its similarity to the target image is {similarity2}. Image 3: <image>, its category is {category3}, and its similarity to the target image is {similarity3}. Image 4: <image>, its category is {category4}, and its similarity to the target image is {similarity4}. Image 5: <image>, its category is {category5}, and its similarity to the target image is {similarity5}.\n\nBased on all the information above, please directly provide the category of the target food image."
+        },
+        {
+          "from": "gpt",
+          "value": "target category"
+        }
+      ],
+      "images": [
+        "image path",
+        "image path",
+        "image path",
+        "image path",
+        "image path",
+        "image path"
+      ]
+    }
+  ]

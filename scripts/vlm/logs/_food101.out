@@ -1,0 +1,27 @@
+Model path: None
+Few-shot: att
+Mode: food101
+Dataset: 5
+K: 5
+k1: 0
+Using dataset: 5
+Gold answer file path: /map-vepfs/dehua/code/visual-memory/answers/groundtruth/5_answers.jsonl
+Save filename: answers/5/None_5_att_food101_k0.jsonl
+DINO file: questions/5/dinov2_large_test_5_fewshotatt_old.jsonl
+SIGLIP file: questions/5/siglip_test_5_fewshotatt.jsonl
+Data proportion: 1
+INFO 06-12 16:20:56 [__init__.py:243] Automatically detected platform cuda.
+Running with the following parameters:
+model_path: None
+save_filename: answers/5/None_5_att_food101_k0.jsonl
+gold_answer_file_path: /map-vepfs/dehua/code/visual-memory/answers/groundtruth/5_answers.jsonl
+label_file: 
+question_file: questions/5/dinov2_large_test_5_fewshotatt_old.jsonl
+siglip_file: questions/5/siglip_test_5_fewshotatt.jsonl
+data_proportion: 1.0
+mode: food101
+k1: 0
+tensor_parallel_size is 1
+INFO 06-12 16:21:37 [__init__.py:31] Available plugins for group vllm.general_plugins:
+INFO 06-12 16:21:37 [__init__.py:33] - lora_filesystem_resolver -> vllm.plugins.lora_resolvers.filesystem_resolver:register_filesystem_resolver
+INFO 06-12 16:21:37 [__init__.py:36] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
