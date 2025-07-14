@@ -26,12 +26,12 @@ file_paths = [
     '/llm_reco/dehua/code/visual-memory/questions/foodx251/dinov2_large_train_5_softmax.json',
 ]
 result_paths = {
-    "food101": "/llm_reco/dehua/data/food_finetune_data/food101_cold_sft.json",
-    "food172": "/llm_reco/dehua/data/food_finetune_data/food172_cold_sft.json",
-    "foodx251": "/llm_reco/dehua/data/food_finetune_data/foodx251_cold_sft.json",
-    "food2k": "/llm_reco/dehua/data/food_finetune_data/food2k_cold_sft.json",
-    "veg200": "/llm_reco/dehua/data/food_finetune_data/veg200_cold_sft.json",
-    "fru92": "/llm_reco/dehua/data/food_finetune_data/fru92_cold_sft.json"
+    "food101": "/llm_reco/dehua/data/food_finetune_data/food101_cold_sft_4shot.json",
+    "food172": "/llm_reco/dehua/data/food_finetune_data/food172_cold_sft_4shot.json",
+    "foodx251": "/llm_reco/dehua/data/food_finetune_data/foodx251_cold_sft_4shot.json",
+    "food2k": "/llm_reco/dehua/data/food_finetune_data/food2k_cold_sft_4shot.json",
+    "veg200": "/llm_reco/dehua/data/food_finetune_data/veg200_cold_sft_4shot.json",
+    "fru92": "/llm_reco/dehua/data/food_finetune_data/fru92_cold_sft_4shot.json"
 }
 file_paths1 = {
     "food101": "/llm_reco/dehua/data/food_data/food-101/Qwen2.5-VL-72B-Instruct-cot.jsonl",
@@ -42,26 +42,21 @@ file_paths1 = {
     "fru92": "/llm_reco/dehua/data/food_data/fru92_lists/Qwen2.5-VL-72B-Instruct-cot.jsonl"
 }
 
-# === Few-shot 配置 ===
-# 修改这个变量来设置每个类别的样本数量
-# None 表示使用所有样本，设置为4表示4-shot，设置为8表示8-shot
-FEW_SHOT = None  # 可以设置为 4, 8, 16, 或 None
+# === 4-shot 配置 ===
+FEW_SHOT = 4
 
-def sample_few_shot_data(data_list, few_shot=None, seed=42):
+def sample_few_shot_data(data_list, few_shot=4, seed=42):
     """
-    对数据进行few-shot采样，确保每个类别最多包含指定数量的样本
+    对数据进行4-shot采样，确保每个类别最多包含4个样本
     
     Args:
         data_list: 原始数据列表
-        few_shot: 每个类别的最大样本数量，None表示不限制
+        few_shot: 每个类别的最大样本数量，固定为4
         seed: 随机种子
     
     Returns:
         采样后的数据列表
     """
-    if few_shot is None:
-        return data_list
-    
     # 设置随机种子
     random.seed(seed)
     
@@ -73,7 +68,11 @@ def sample_few_shot_data(data_list, few_shot=None, seed=42):
     
     # 对每个类别进行采样
     sampled_data = []
+    total_original = 0
+    total_sampled = 0
+    
     for category, items in category_data.items():
+        total_original += len(items)
         if len(items) <= few_shot:
             # 如果样本数量少于或等于few_shot，使用全部样本
             sampled_items = items
@@ -82,7 +81,10 @@ def sample_few_shot_data(data_list, few_shot=None, seed=42):
             sampled_items = random.sample(items, few_shot)
         
         sampled_data.extend(sampled_items)
+        total_sampled += len(sampled_items)
         print(f"[INFO] Category '{category}': {len(sampled_items)}/{len(items)} samples selected")
+    
+    print(f"[INFO] Total samples: {total_sampled}/{total_original}")
     
     # 随机打乱最终结果
     random.shuffle(sampled_data)
@@ -118,7 +120,6 @@ def parse_attribute(attribute):
     
     return True, "OK", (shape, texture, composition, color, cooking_style)
 
-
 # === Attribute 解析函数 ===
 def parse_attribute1(attribute: str):
     shape = texture = composition = color = cooking_style = None
@@ -126,7 +127,7 @@ def parse_attribute1(attribute: str):
     # 按行拆分，并去掉空行
     lines = [line.strip() for line in attribute.strip().split('\n') if line.strip()]
 
-    # 用正则匹配 “数字. 文本” 形式
+    # 用正则匹配 "数字. 文本" 形式
     for line in lines:
         m = re.match(r'^(\d+)\.\s*(.+)$', line)
         if not m:
@@ -173,22 +174,9 @@ for name, path in file_paths1.items():
             c2a[data['category']] = data['output']
     dataset_c2a[name] = c2a
 
-# === 主处理函数 ===
-def process_dataset(few_shot=None):
-    """
-    处理数据集，支持few-shot采样
-    
-    Args:
-        few_shot: 每个类别的最大样本数量，None表示不限制
-    """
-    # 更新结果路径以包含few-shot信息
-    if few_shot is not None:
-        updated_result_paths = {}
-        for dataset_name, path in result_paths.items():
-            base_path = path.replace('.json', '')
-            updated_result_paths[dataset_name] = f"{base_path}_fewshot{few_shot}.json"
-    else:
-        updated_result_paths = result_paths
+# === 主程序执行 ===
+if __name__ == "__main__":
+    print("=== Food Dataset 4-Shot Processing ===")
     
     missing_paths = []
 
@@ -201,14 +189,10 @@ def process_dataset(few_shot=None):
         print(f"[INFO] Processing dataset: {dataset_name}")
         print(f"[INFO] Original data size: {len(data_list)}")
 
-        # 进行few-shot采样
-        if few_shot is not None:
-            print(f"[INFO] Applying {few_shot}-shot sampling...")
-            sampled_data = sample_few_shot_data(data_list, few_shot)
-            print(f"[INFO] Sampled data size: {len(sampled_data)}")
-        else:
-            sampled_data = data_list
-            print(f"[INFO] Using all data (no few-shot limit)")
+        # 进行4-shot采样
+        print(f"[INFO] Applying 4-shot sampling...")
+        sampled_data = sample_few_shot_data(data_list, few_shot=4)
+        print(f"[INFO] Sampled data size: {len(sampled_data)}")
 
         merged_conversations = []
 
@@ -243,24 +227,10 @@ def process_dataset(few_shot=None):
             })
 
         # === 保存结果 ===
-        output_path = updated_result_paths[dataset_name]
+        output_path = result_paths[dataset_name]
         with open(output_path, 'w', encoding='utf-8') as f:
             json.dump(merged_conversations, f, ensure_ascii=False, indent=2)
         
         print(f"[INFO] Saved {len(merged_conversations)} conversations to {output_path}")
 
-    print(f"\n✅ Done. Missing image count: {len(missing_paths)}")
-
-# === 主程序执行 ===
-if __name__ == "__main__":
-    print("=== Food Dataset Few-Shot Processing ===")
-    
-    # 运行不同的few-shot设置
-    print("\n1. 处理4-shot数据...")
-    process_dataset(few_shot=4)
-    
-    print("\n2. 处理8-shot数据...")
-    process_dataset(few_shot=8)
-    
-    print("\n3. 处理完整数据集（无few-shot限制）...")
-    process_dataset(few_shot=None)  
+    print(f"\n✅ 4-Shot processing completed. Missing image count: {len(missing_paths)}") 
